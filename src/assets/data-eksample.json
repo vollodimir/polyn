@@ -1,0 +1,71 @@
+[
+  {
+    "id": "0",
+    "nayavnist": true,
+    "imgURL": [
+      "http://localhost:3000/img/product-4.jpg",
+      "http://localhost:3000/img/product-4.jpg",
+      "http://localhost:3000/img/product-4.jpg",
+      "http://localhost:3000/img/product-4.jpg"
+    ],
+    "videoURL": "http://localhost:3000/img/product-4.jpg",
+    "title": "Colorful Stylish Shirt",
+    "description": "Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet sit clita ea. Sanc invidunt ipsum et, labore clita lorem magna lorem ut. Erat lorem duo dolor no sea nonumy.",
+    "text": "<p>Eos no lorem eirmod <strong>diam diam</strong>, eos elitr et gubergren diam sea. Consetetur vero aliquyam invidunt duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod consetetur invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd ipsum rebum diam. Dolore diam stet rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam sadipscing, eos dolores sit no ut diam consetetur duo justo est, sit sanctus diam tempor aliquyam eirmod nonumy rebum dolor accusam, ipsum kasd eos consetetur at sit rebum, diam kasd invidunt tempor lorem, </p><p>ipsum lorem elitr sanctus eirmod takimata dolor ea invidunt.</p>",
+    "category": [
+      "Одіялка",
+      "Простині",
+      "Простині на резинці",
+      "Пелюшки",
+      "Ортопедичні подушки",
+      "Слюнявчики",
+      "Іграшки",
+      "Постільні комплекти",
+      "Наволочки на подушки",
+      "Наволочки на подушки",
+      "Підковдри",
+      "Спальні мішки",
+      "Коврики"
+    ],
+    "tags": ["текстиль", "іграшки", "аксесуари", "для хлопчиків, дівчаток"],
+    "sizes": ["60/120", "90/200", "110/140", "140/200", ""],
+
+    "colors": ["red", "green", "pink"],
+    "price": 180,
+    "priceMnozhitel": 0.15,
+    "sale": 15,
+    "comment-count": 5
+  },
+
+  {
+    "id": "0",
+    "nayavnist": true,
+    "imgURL": ["http://localhost:3000/img/product-4.jpg", ""],
+    "videoURL": "http://localhost:3000/img/product-4.jpg",
+    "title": "Colorful Stylish Shirt",
+    "description": "Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet sit clita ea. Sanc invidunt ipsum et, labore clita lorem magna lorem ut. Erat lorem duo dolor no sea nonumy.",
+    "text": "<p>Eos no lorem eirmod <strong>diam diam</strong>, eos elitr et gubergren diam sea. Consetetur vero aliquyam invidunt duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod consetetur invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd ipsum rebum diam. Dolore diam stet rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam sadipscing, eos dolores sit no ut diam consetetur duo justo est, sit sanctus diam tempor aliquyam eirmod nonumy rebum dolor accusam, ipsum kasd eos consetetur at sit rebum, diam kasd invidunt tempor lorem, </p><p>ipsum lorem elitr sanctus eirmod takimata dolor ea invidunt.</p>",
+    "category": [
+      "одыялка, простинь на резинці, пельонки, ортопедичні подушки, плаття, ромпери, панамки, слюнявчики, боннет, іграшкиб постільні комплекти (так и в наборі), повязки",
+      ""
+    ],
+    "tags": ["одяг", "текстиль", "іграшки", "аксесуари", "для хлопчиків, дівчаток"],
+    "sizes": [
+      {
+        "type": "height",
+        "name": "Зрiст",
+        "size": ["50-56", "62-68", "68-74", "74-80", "80-86", "86-92", "92-98", "98-104", "104-110"]
+      },
+      { "type": "age", "name": "Вік", "size": ["0-6", "6-12", "12-18", "1,5-2", "2,5-3"] },
+      { "type": "textile", "name": "Текстиль", "size": ["60/120", "90/200", "110/140", "140/200"] },
+      { "type": "other", "name": "Без розміру", "size": ["Один розмір"] }
+    ],
+
+    "colors": ["red", "green", "pink"],
+
+    "price": 180,
+    "priceMnozhitel": 0.15,
+    "sale": 15,
+    "comment-count": 5
+  }
+]
