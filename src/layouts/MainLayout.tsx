@@ -27,17 +27,17 @@ const MainLayout: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {location.pathname !== '/' && <BreadCrumbs />}
+      {/* !== '/login' */}
+      {location.pathname !== '/' && location.pathname !== '/login' && <BreadCrumbs />}
 
       <Outlet />
 
       <Footer />
 
       {/*    <!-- Back to Top --> */}
-      <a href="/" className="btn btn-primary back-to-top">
+      {/* <a href="/" className="btn btn-primary back-to-top">
         <i className="fa fa-angle-double-up"></i>
-      </a>
+      </a> */}
     </>
   );
 };
