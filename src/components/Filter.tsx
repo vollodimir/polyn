@@ -8,7 +8,7 @@ export const Filter = () => {
         <h5 className="font-weight-semi-bold mb-4">Filter by price</h5>
         <form>
           <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-            <input type="checkbox" className="custom-control-input" checked id="price-all" />
+            <input type="checkbox" className="custom-control-input" id="price-all" />
             <label className="custom-control-label" htmlFor="price-all">
               All Price
             </label>
@@ -58,7 +58,7 @@ export const Filter = () => {
         <h5 className="font-weight-semi-bold mb-4">Filter by color</h5>
         <form>
           <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-            <input type="checkbox" className="custom-control-input" checked id="color-all" />
+            <input type="checkbox" className="custom-control-input" id="color-all" />
             <label className="custom-control-label" htmlFor="price-all">
               All Color
             </label>
@@ -108,7 +108,7 @@ export const Filter = () => {
         <h5 className="font-weight-semi-bold mb-4">Filter by size</h5>
         <form>
           <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-            <input type="checkbox" className="custom-control-input" checked id="size-all" />
+            <input type="checkbox" className="custom-control-input" id="size-all" />
             <label className="custom-control-label" htmlFor="size-all">
               All Size
             </label>

@@ -6,6 +6,7 @@ $primary: #d19c97;
 $secondary: #f2f3f4; // #edf1ff;
 $light: #ffffff;
 $dark: #1c1c1c;
+$transition: 0.3s;
 
 $theme-colors: (
   'primary': $primary,
@@ -235,3 +236,7 @@ $input-placeholder-color: #999999;
   }
 }
 ///Login Form END
+
+// .product-item {
+//   box-shadow: 0px 0px 1px 0px $input-placeholder-color;
+// }

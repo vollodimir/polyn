@@ -5,7 +5,10 @@ import { ShopItem } from '../components/ShopItem';
 import { ShopSearch } from '../components/ShopSearch';
 import { SortBy } from '../components/SortBy';
 
+import products from '../assets/data.json';
+
 export const Shop: React.FC = () => {
+  console.log(products);
   return (
     <div className="container-fluid pt-5">
       <div className="row px-xl-5">
@@ -18,13 +21,8 @@ export const Shop: React.FC = () => {
                 <SortBy />
               </div>
             </div>
-            <ShopItem />
-            <ShopItem />
-            <ShopItem />
-            <ShopItem />
-            <ShopItem />
-            <ShopItem />
-            <ShopItem />
+            {products && products.map((el) => <ShopItem {...el} />)}
+
             <Pagination />
           </div>
         </div>
