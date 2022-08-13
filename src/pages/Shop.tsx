@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Filter } from '../components/Filter';
 import { Pagination } from '../components/Pagination';
 import { ShopItem } from '../components/ShopItem';
 import { ShopSearch } from '../components/ShopSearch';
 import { SortBy } from '../components/SortBy';
 
-import products from '../assets/data.json';
+import { RootState, useAppDispatch } from '../redux/store';
+import { fetchProducts } from '../redux/shop/slice';
+import { useSelector } from 'react-redux';
 
 export const Shop: React.FC = () => {
-  console.log(products);
+  const dispatch = useAppDispatch();
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  React.useEffect(() => {
+    dispatch(fetchProducts());
+    setIsLoading(true);
+  }, []);
+
+  const { products } = useSelector((state: RootState) => state.products);
+  isLoading && console.log(products.items);
   return (
     <div className="container-fluid pt-5">
       <div className="row px-xl-5">
@@ -21,7 +32,7 @@ export const Shop: React.FC = () => {
                 <SortBy />
               </div>
             </div>
-            {products && products.map((el) => <ShopItem {...el} />)}
+            {products && products.items.map((el: any) => <ShopItem key={el._id} {...el} />)}
 
             <Pagination />
           </div>

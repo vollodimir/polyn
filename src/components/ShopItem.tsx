@@ -2,39 +2,39 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 type ShopItemProps = {
-  id: string;
-  availability: boolean;
-  imgURL: string[];
-  videoURL: string;
+  _id: string;
   title: string;
   description: string;
   text: string;
-  category: { name: string; subCategory: string };
+  category: string;
+  subCategory: string;
   tags: string[];
+  imgURL: string[];
+  videoURL: string;
+  availability: boolean;
   sizes: string[];
   colors: string[];
   price: number;
   priceFactor: number;
   sale: number;
-  commentCount: number;
 };
 
 export const ShopItem: React.FC<ShopItemProps> = ({
-  id,
-  availability,
-  imgURL,
-  videoURL,
+  _id,
   title,
   description,
   text,
   category,
+  subCategory,
   tags,
+  imgURL,
+  videoURL,
+  availability,
   sizes,
   colors,
   price,
   priceFactor,
   sale,
-  commentCount,
 }) => {
   return (
     <div className="col-lg-4 col-md-6 col-sm-12 pb-1">
@@ -54,7 +54,9 @@ export const ShopItem: React.FC<ShopItemProps> = ({
               {sizes[0] ? (
                 <select>
                   {sizes.map((size, index) => (
-                    <option value={index}>{size}</option>
+                    <option key={index + size} value={index}>
+                      {size}
+                    </option>
                   ))}
                 </select>
               ) : (
@@ -66,7 +68,9 @@ export const ShopItem: React.FC<ShopItemProps> = ({
               {colors[0] ? (
                 <select name="user_profile_color_1">
                   {colors.map((color, index) => (
-                    <option value={index}>{color}</option>
+                    <option key={color + index} value={index}>
+                      {color}
+                    </option>
                   ))}
                 </select>
               ) : (
@@ -76,7 +80,7 @@ export const ShopItem: React.FC<ShopItemProps> = ({
           </div>
         </div>
         <div className="card-footer d-flex justify-content-between bg-light border">
-          <Link to={`/shop/${id}`} className="btn btn-sm text-dark p-0">
+          <Link to={`/shop/${_id}`} className="btn btn-sm text-dark p-0">
             <i className="fas fa-eye text-primary mr-1"></i>Деталі
           </Link>
           <Link to="/" className="btn btn-sm text-dark p-0">
