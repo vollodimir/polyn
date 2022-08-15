@@ -6,20 +6,23 @@ import { ShopSearch } from '../components/ShopSearch';
 import { SortBy } from '../components/SortBy';
 
 import { RootState, useAppDispatch } from '../redux/store';
-import { fetchProducts } from '../redux/shop/slice';
+import { fetchProducts, setCurentPage } from '../redux/shop/slice';
 import { useSelector } from 'react-redux';
+import { Loading } from '../components/Loading';
 
 export const Shop: React.FC = () => {
   const dispatch = useAppDispatch();
-  const [isLoading, setIsLoading] = React.useState(false);
+
+  const { products, pagination, status } = useSelector((state: RootState) => state.products);
+
+  const isLoading = status === 'success';
+
+  const onChangePage = (page: number) => dispatch(setCurentPage(page));
 
   React.useEffect(() => {
-    dispatch(fetchProducts());
-    setIsLoading(true);
-  }, []);
+    dispatch(fetchProducts(pagination.page));
+  }, [pagination.page]);
 
-  const { products } = useSelector((state: RootState) => state.products);
-  isLoading && console.log(products.items);
   return (
     <div className="container-fluid pt-5">
       <div className="row px-xl-5">
@@ -32,9 +35,18 @@ export const Shop: React.FC = () => {
                 <SortBy />
               </div>
             </div>
-            {products && products.items.map((el: any) => <ShopItem key={el._id} {...el} />)}
-
-            <Pagination />
+            {!isLoading ? (
+              <Loading />
+            ) : (
+              <>
+                {products.map((el: any) => (
+                  <ShopItem key={el._id} {...el} />
+                ))}
+                {pagination.allProducts > pagination.limit && (
+                  <Pagination onChangePage={onChangePage} {...pagination} />
+                )}
+              </>
+            )}
           </div>
         </div>
       </div>
