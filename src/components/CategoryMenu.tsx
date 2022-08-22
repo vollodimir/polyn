@@ -34,7 +34,7 @@ export const CategoryMenu: React.FC = () => {
           isVisible && 'collapse'
         } position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light`}
         id="navbar-vertical"
-        style={{ width: 'calc(100% - 30px)', zIndex: '1' }}>
+        style={{ width: 'calc(100% - 30px)', zIndex: '100' }}>
         <div className="navbar-nav w-100 overflow-hidden" style={{ height: '410px' }}>
           {categories.map((el) => (
             <a key={el.key} href="/" className="nav-item nav-link">

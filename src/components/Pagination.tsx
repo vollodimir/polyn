@@ -45,7 +45,7 @@ export const Pagination: React.FC<PaginationProps> = ({
             <li
               key={index + page}
               onClick={() => onChangePage(index + 1)}
-              className={`page-item ${index + 1 === page && 'active'}`}>
+              className={`page-item ${index + 1 === +page && 'active'}`}>
               <Link className="page-link" to={`?page=${index + 1}`}>
                 {index + 1}
               </Link>

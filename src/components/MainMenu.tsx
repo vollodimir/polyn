@@ -1,14 +1,27 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { logout, selectIsAuth } from '../redux/auth/slise';
+import { useAppDispatch } from '../redux/store';
 
 export const MainMenu = () => {
+  const dispatch = useAppDispatch();
   const [isVisible, setIsVisible] = React.useState(true);
+  const isAuth = useSelector(selectIsAuth);
+
+  const onClickLogout = () => {
+    if (window.confirm('Are you sure to logout?')) {
+      dispatch(logout());
+    }
+  };
+
   return (
     <nav className="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
-      <a href="/" className="text-decoration-none d-block d-lg-none">
+      <Link to="/" className="text-decoration-none d-block d-lg-none">
         <h1 className="m-0 display-5 font-weight-semi-bold">
           <span className="text-primary font-weight-bold border px-3 mr-1">E</span>Polyn
         </h1>
-      </a>
+      </Link>
       <button
         onClick={() => {
           setIsVisible(!isVisible);
@@ -23,39 +36,52 @@ export const MainMenu = () => {
         className={`${isVisible && 'collapse'} navbar-collapse justify-content-between`}
         id="navbarCollapse">
         <div className="navbar-nav mr-auto py-0">
-          <a href="/" className="nav-item nav-link">
-            Home
-          </a>
-          <a href="/shop" className="nav-item nav-link active">
+          <Link to="/" className="nav-item nav-link">
+            Головна
+          </Link>
+          <Link to="/shop" className="nav-item nav-link active">
             Магазин
-          </a>
-          <a href="/shop/12" className="nav-item nav-link">
+          </Link>
+          <Link to="/shop/12" className="nav-item nav-link">
             Shop Detail
-          </a>
+          </Link>
           <div className="nav-item dropdown">
-            <a className="nav-link dropdown-toggle" data-toggle="dropdown">
+            <Link to="/" className="nav-link dropdown-toggle" data-toggle="dropdown">
               Pages
-            </a>
+            </Link>
             <div className="dropdown-menu rounded-0 m-0">
-              <a href="/cart" className="dropdown-item">
+              <Link to="/cart" className="dropdown-item">
                 Shopping Cart
-              </a>
-              <a href="checkout.html" className="dropdown-item">
+              </Link>
+              <Link to="checkout.html" className="dropdown-item">
                 Checkout
-              </a>
+              </Link>
             </div>
           </div>
-          <a href="contact.html" className="nav-item nav-link">
+          <Link to="contact.html" className="nav-item nav-link">
             Contact
-          </a>
+          </Link>
         </div>
         <div className="navbar-nav ml-auto py-0">
-          <a href="/login" className="nav-item nav-link">
-            Login
-          </a>
-          <a href="/" className="nav-item nav-link">
-            Register
-          </a>
+          {isAuth ? (
+            <>
+              <Link to="/account" title="Account Area" className="nav-item nav-link">
+                <i className="fa fa-user text-primary"></i>
+              </Link>
+              <Link onClick={onClickLogout} to="/" className="nav-item nav-link">
+                Logout
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="nav-item nav-link">
+                Login
+              </Link>
+              <Link to="/register" className="nav-item nav-link">
+                Register
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </nav>

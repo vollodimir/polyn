@@ -4,16 +4,17 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import styles from './SliderShopDetail.module.scss';
+import { ShopItemProps } from '../ShopItem';
 
-const imgArr = [
-  'http://ostarbeiter.vn.ua/img/2022/04/ustawa-o-pomocy-obywatelom-ukrainy.jpg',
-  'http://ostarbeiter.vn.ua/img/2021/01/porady-studentam.jpg',
-  'http://ostarbeiter.vn.ua/img/2021/01/polski-mazuri-zymoiu.jpg',
-  'http://ostarbeiter.vn.ua/img/2015/03/pln-100.jpg',
-  'http://ostarbeiter.vn.ua/img/2021/01/zhyrnyi-chetver.jpg',
-  'http://ostarbeiter.vn.ua/img/2021/01/zymovi-shyny-eu.jpg',
-  'http://ostarbeiter.vn.ua/img/2020/11/pamyatki-prirodi-pol.jpg',
-];
+// const imgArr = [
+//   'http://ostarbeiter.vn.ua/img/2022/04/ustawa-o-pomocy-obywatelom-ukrainy.jpg',
+//   'http://ostarbeiter.vn.ua/img/2021/01/porady-studentam.jpg',
+//   'http://ostarbeiter.vn.ua/img/2021/01/polski-mazuri-zymoiu.jpg',
+//   'http://ostarbeiter.vn.ua/img/2015/03/pln-100.jpg',
+//   'http://ostarbeiter.vn.ua/img/2021/01/zhyrnyi-chetver.jpg',
+//   'http://ostarbeiter.vn.ua/img/2021/01/zymovi-shyny-eu.jpg',
+//   'http://ostarbeiter.vn.ua/img/2020/11/pamyatki-prirodi-pol.jpg',
+// ];
 
 type ArrowProps = {
   onClick?: React.MouseEventHandler;
@@ -35,11 +36,11 @@ function NextArrow({ onClick }: ArrowProps) {
   );
 }
 
-export const SliderShopDetail: React.FC = () => {
+export const SliderShopDetail: React.FC<ShopItemProps> = ({ imgURL, title }) => {
   const settings = {
     customPaging: (i: number) => (
       <a>
-        <img src={imgArr[i]} />
+        <img src={imgURL[i]} />
       </a>
     ),
 
@@ -54,12 +55,11 @@ export const SliderShopDetail: React.FC = () => {
     prevArrow: <PrevArrow />,
   };
 
-  console.log(styles.root);
   return (
     <Slider {...settings}>
-      {imgArr.map((imgURL) => (
-        <div className={styles.mainImg}>
-          <img src={imgURL} />
+      {imgURL.map((img, index) => (
+        <div key={img + index} className={styles.mainImg}>
+          <img src={img} title={title} />
         </div>
       ))}
     </Slider>

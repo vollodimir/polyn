@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-type ShopItemProps = {
+export type ShopItemProps = {
   _id: string;
   title: string;
   description: string;

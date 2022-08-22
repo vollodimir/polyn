@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Logo } from './Logo';
 import { Search } from './Search';
 
@@ -13,14 +14,14 @@ export const Header: React.FC = () => {
         <Search />
 
         <div className="col-lg-3 col-6 text-right">
-          <a href="/" className="btn border">
+          <Link to="/" className="btn border">
             <i className="fas fa-heart text-primary"></i>
             <span className="badge">0</span>
-          </a>{' '}
-          <a href="/cart" className="btn border">
+          </Link>{' '}
+          <Link to="/cart" className="btn border">
             <i className="fas fa-shopping-cart text-primary"></i>
             <span className="badge">0</span>
-          </a>
+          </Link>
         </div>
       </div>
     </>
