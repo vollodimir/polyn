@@ -3,7 +3,7 @@
 /******* Bootstrap Theming ********/
 
 $primary: #d19c97;
-$secondary: #f2f3f4; // #edf1ff;
+$secondary: #e7ebec; //#f2f3f4; // #edf1ff;
 $light: #ffffff;
 $dark: #1c1c1c;
 $transition: 0.3s;
@@ -244,4 +244,83 @@ $input-placeholder-color: #999999;
 
 .product-item {
   box-shadow: 0px 0px 1px 0px $input-placeholder-color;
+}
+
+///Add form
+.add-form {
+  width: 80%;
+  margin: 10px auto;
+  border: 1px solid rgba($dark, 0.3);
+  padding: 10px;
+
+  input,
+  select,
+  label,
+  textarea {
+    margin-bottom: 10px;
+    border: 1px solid rgba($dark, 0.3);
+    &:focus {
+      border: 1px solid rgba($dark, 0.6);
+    }
+  }
+
+  // select,
+  // input[type='file'],
+  // label {
+  //   width: 40%;
+  // }
+
+  // &__cat {
+  //   display: flex;
+  //   flex-wrap: wrap;
+  //   justify-content: space-between;
+  //   align-items: baseline;
+  //   input {
+  //     width: 24%;
+  //   }
+  // }
+
+  &__sizes {
+    border: 1px solid rgba($dark, 0.3);
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    label {
+      width: 150px;
+      margin-left: 5px;
+      text-align: center;
+    }
+  }
+  &__price {
+    padding-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    input {
+      width: 30%;
+    }
+  }
+  // input[type='file'] {
+  //   border: 1px solid #000;
+  // }+
+}
+
+.admin-menu {
+  width: 80%;
+  margin: 20px auto;
+  border: 1px solid rgba($dark, 0.3);
+  padding: 10px 10px 0 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+
+  a {
+    margin-bottom: 10px;
+  }
+  @media (max-width: 750px) {
+    flex-direction: column;
+  }
 }

@@ -1,7 +1,6 @@
-import React from 'react';
 import { AdminMenu } from '../../components/AdminMenu';
 
-export const AddCategory = () => {
+export const AddSubcategory = () => {
   return (
     <>
       <AdminMenu />
@@ -11,8 +10,15 @@ export const AddCategory = () => {
             type="text"
             className="form-control is-valid"
             id="name"
-            placeholder="Name category"
+            placeholder="Name subcategory"
           />
+          <select className="form-control" id="category">
+            <option selected>Select category</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
           <input type="file" className="form-control-file" id="images" accept=".jpg, .jpeg, .png" />
           <textarea
             className="form-control"
@@ -21,7 +27,7 @@ export const AddCategory = () => {
             placeholder="Description"></textarea>
 
           <button type="submit" className="btn btn-lg btn-primary btn-block">
-            Add category
+            Add subcategory
           </button>
         </form>
       </div>

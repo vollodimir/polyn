@@ -1,13 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import defaultProdImg from '../assets/img/defaultProdImg.png';
+
 export type ShopItemProps = {
-  _id: string;
+  _id?: string;
   title: string;
   description: string;
   text: string;
-  category: string;
-  subCategory: string;
+  categoryId: string;
+  subCategoryId: string;
   tags: string[];
   imgURL: string[];
   videoURL: string;
@@ -24,8 +26,8 @@ export const ShopItem: React.FC<ShopItemProps> = ({
   title,
   description,
   text,
-  category,
-  subCategory,
+  categoryId,
+  subCategoryId,
   tags,
   imgURL,
   videoURL,
@@ -41,7 +43,11 @@ export const ShopItem: React.FC<ShopItemProps> = ({
       <div className="card product-item border-0 mb-4">
         <div className="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
           <Link to={`/shop/${_id}`}>
-            <img className="img-fluid w-100" src={imgURL[0]} alt="title" />
+            <img
+              className="img-fluid w-100"
+              src={imgURL.length ? `http://localhost:4444/uploads/${imgURL[0]}` : defaultProdImg}
+              alt="title"
+            />
           </Link>
         </div>
         <div className="card-body border-left border-right text-center p-0 pt-4 pb-3">

@@ -6,6 +6,8 @@ import 'slick-carousel/slick/slick-theme.css';
 import styles from './SliderShopDetail.module.scss';
 import { ShopItemProps } from '../ShopItem';
 
+import defaultProdImg from '../../assets/img/defaultProdImg.png';
+
 // const imgArr = [
 //   'http://ostarbeiter.vn.ua/img/2022/04/ustawa-o-pomocy-obywatelom-ukrainy.jpg',
 //   'http://ostarbeiter.vn.ua/img/2021/01/porady-studentam.jpg',
@@ -40,7 +42,7 @@ export const SliderShopDetail: React.FC<ShopItemProps> = ({ imgURL, title }) => 
   const settings = {
     customPaging: (i: number) => (
       <a>
-        <img src={imgURL[i]} />
+        <img src={`http://localhost:4444/uploads/${imgURL[i]}`} />
       </a>
     ),
 
@@ -57,11 +59,17 @@ export const SliderShopDetail: React.FC<ShopItemProps> = ({ imgURL, title }) => 
 
   return (
     <Slider {...settings}>
-      {imgURL.map((img, index) => (
-        <div key={img + index} className={styles.mainImg}>
-          <img src={img} title={title} />
+      {imgURL.length ? (
+        imgURL.map((img, index) => (
+          <div key={img + index} className={styles.mainImg}>
+            <img src={`http://localhost:4444/uploads/${img}`} title={title} />
+          </div>
+        ))
+      ) : (
+        <div className={styles.mainImg}>
+          <img src={defaultProdImg} title={title} />
         </div>
-      ))}
+      )}
     </Slider>
   );
 };

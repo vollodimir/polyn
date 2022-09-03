@@ -1,7 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { logout, selectIsAuth } from '../redux/auth/slise';
+import { selectIsAuth } from '../redux/auth/selectors';
+import { logout } from '../redux/auth/slise';
 import { useAppDispatch } from '../redux/store';
 
 export const MainMenu = () => {
@@ -65,7 +66,7 @@ export const MainMenu = () => {
         <div className="navbar-nav ml-auto py-0">
           {isAuth ? (
             <>
-              <Link to="/account" title="Account Area" className="nav-item nav-link">
+              <Link to="/admin" title="Account Area" className="nav-item nav-link">
                 <i className="fa fa-user text-primary"></i>
               </Link>
               <Link onClick={onClickLogout} to="/" className="nav-item nav-link">

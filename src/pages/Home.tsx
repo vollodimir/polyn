@@ -12,6 +12,7 @@ import { fetchPosts } from '../redux/posts/slice';
 
 export const Home = () => {
   const dispatch = useAppDispatch();
+
   React.useEffect(() => {
     dispatch(fetchPosts());
   }, []);

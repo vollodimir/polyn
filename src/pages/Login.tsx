@@ -1,8 +1,10 @@
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
+import { selectIsAuth } from '../redux/auth/selectors';
 
-import { fetchLogin, selectIsAuth, UserParams } from '../redux/auth/slise';
+import { fetchLogin } from '../redux/auth/slise';
+import { LoginParams } from '../redux/auth/types';
 import { useAppDispatch } from '../redux/store';
 
 export const Login = () => {
@@ -22,7 +24,7 @@ export const Login = () => {
     mode: 'onChange',
   });
 
-  const onSubmit = async (values: UserParams) => {
+  const onSubmit = async (values: LoginParams) => {
     const userData = await dispatch(fetchLogin(values));
 
     if (!userData.payload) {
@@ -44,7 +46,7 @@ export const Login = () => {
         <input
           {...register('email', { required: 'Input email adress' })}
           type="email"
-          className="form-control"
+          className={`form-control ${!errors.email ? 'is-valid' : 'is-invalid'}`}
           name="email"
           placeholder="Email Address"
         />
@@ -52,13 +54,15 @@ export const Login = () => {
         <input
           {...register('password', { required: 'Input password' })}
           type="password"
-          className="form-control"
+          className={`form-control ${!errors.password ? 'is-valid' : 'is-invalid'}`}
           name="password"
           placeholder="Password"
         />
-        <p className="checkbox" style={{ color: 'red', fontSize: '12px' }}>
+
+        <div className="alert alert-danger" role="alert">
           {errors.email?.message} {errors.password?.message}
-        </p>
+        </div>
+
         {/* <label className="checkbox">
           <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe" /> Remember
           me

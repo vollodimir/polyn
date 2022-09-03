@@ -1,9 +1,9 @@
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import axios from '../axios';
-import { fetchRegister, RegisterParams, selectIsAuth } from '../redux/auth/slise';
+import { selectIsAuth } from '../redux/auth/selectors';
+import { fetchRegister } from '../redux/auth/slise';
+import { RegisterParams } from '../redux/auth/types';
 import { useAppDispatch } from '../redux/store';
 
 export const Register = () => {
@@ -48,32 +48,33 @@ export const Register = () => {
         <input
           {...register('firstName', { required: 'First Name' })}
           type="text"
-          className="form-control"
+          className={`form-control ${isValid ? 'is-valid' : 'is-invalid'}`}
           name="firstName"
           placeholder="First Name"
         />
         <input
           {...register('lastName', { required: 'Last Name' })}
           type="text"
-          className="form-control"
+          className={`form-control ${isValid ? 'is-valid' : 'is-invalid'}`}
           name="lastName"
           placeholder="Last Name"
         />
         <input
           {...register('email', { required: 'Input email adress' })}
           type="email"
-          className="form-control"
+          className={`form-control ${isValid ? 'is-valid' : 'is-invalid'}`}
           name="email"
           placeholder="Email Address"
         />
         <input
           {...register('password', { required: 'Input password' })}
           type="password"
-          className="form-control"
+          className={`form-control ${isValid ? 'is-valid' : 'is-invalid'}`}
           name="password"
           placeholder="Password"
         />
-
+        <div className="invalid-feedback">Please choose a username.</div>
+        <div className="valid-feedback">Looks good!</div>
         <p className="checkbox" style={{ color: 'red', fontSize: '12px' }}>
           {errors.firstName?.message}
           {errors.lastName?.message}
