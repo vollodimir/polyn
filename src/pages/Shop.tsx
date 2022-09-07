@@ -1,19 +1,20 @@
 import React, { useContext } from 'react';
 import { Filter } from '../components/Filter';
 import { Pagination } from '../components/Pagination';
-import { ShopItem } from '../components/ShopItem';
+import { ShopItem, ShopItemProps } from '../components/ShopItem';
 import { ShopSearch } from '../components/ShopSearch';
 import { SortBy } from '../components/SortBy';
 
-import { RootState, useAppDispatch } from '../redux/store';
+import { useAppDispatch } from '../redux/store';
 import { fetchProducts, setCurentPage } from '../redux/shop/slice';
 import { useSelector } from 'react-redux';
 import { Loading } from '../components/Loading';
+import { selectProducts } from '../redux/shop/selectors';
 
 export const Shop: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const { products, pagination, status } = useSelector((state: RootState) => state.products);
+  const { products, pagination, status } = useSelector(selectProducts);
 
   const isLoading = status === 'success';
 
@@ -39,7 +40,7 @@ export const Shop: React.FC = () => {
               <Loading />
             ) : (
               <>
-                {products.map((el: any) => (
+                {products.map((el: ShopItemProps) => (
                   <ShopItem key={el._id} {...el} />
                 ))}
                 {pagination.allProducts > pagination.limit && (

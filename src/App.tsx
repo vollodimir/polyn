@@ -15,6 +15,7 @@ import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { selectIsAuth } from './redux/auth/selectors';
 import { fetchMe } from './redux/auth/slise';
+import { fetchCategories } from './redux/shop/slice';
 import { useAppDispatch } from './redux/store';
 
 import './scss/style.scss';
@@ -24,6 +25,7 @@ function App() {
   const isAuth = useSelector(selectIsAuth);
   React.useEffect(() => {
     dispatch(fetchMe());
+    dispatch(fetchCategories());
   }, []);
 
   return (

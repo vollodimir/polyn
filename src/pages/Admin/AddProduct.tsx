@@ -5,8 +5,9 @@ import { useForm } from 'react-hook-form';
 import removeSVG from '../../assets/img/svg/cancel-circle.svg';
 import { AdminMenu } from '../../components/AdminMenu';
 import { ShopItemProps } from '../../components/ShopItem';
-import { fetchProductAdd } from '../../redux/product/slise';
-import { useAppDispatch } from '../../redux/store';
+import { useSelector } from 'react-redux';
+import { selectProducts } from '../../redux/shop/selectors';
+import { CategoriesType, SubCategoriesType } from '../../redux/shop/types';
 
 const sizesArr = [
   { value: '110/140', label: '110/140' },
@@ -16,8 +17,9 @@ const sizesArr = [
 ];
 
 export const AddProduct = () => {
-  const dispatch = useAppDispatch();
   const [productImgArr, setProductImgArr] = React.useState([]);
+  const [catId, setCatId] = React.useState('');
+  const { categories, subCategories } = useSelector(selectProducts);
 
   const {
     reset,
@@ -30,8 +32,8 @@ export const AddProduct = () => {
       title: '',
       description: '',
       text: '',
-      categoryId: '62f6b0bd0bb299970a10107f',
-      subCategoryId: '62f6b0f50bb299970a101083',
+      categoryId: '',
+      subCategoryId: 'none',
       tags: [''],
       imgURL: [''],
       videoURL: '',
@@ -52,19 +54,21 @@ export const AddProduct = () => {
       values.colors = String(colors).split(',');
       values.tags = String(tags).split(',');
       values.imgURL = productImgArr;
-      const productData = await dispatch(fetchProductAdd(values));
 
-      if (productData.meta.requestStatus === 'fulfilled') {
+      //const productData = await dispatch(fetchProductAdd(values));
+
+      const { data } = await axios.post('/product', values);
+
+      //console.log(data.response);
+
+      if (data) {
         alert('Product add!');
         reset();
         setProductImgArr([]);
       }
-
-      if (productData.meta.requestStatus === 'rejected') {
-        alert('Product add problem!');
-      }
     } catch (error) {
       console.log(error);
+      alert('Product add problem!');
     }
   };
 
@@ -86,6 +90,10 @@ export const AddProduct = () => {
     } catch (error) {
       console.log('yakas imageArr err!', error);
     }
+  };
+
+  const onChangeCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setCatId(event.target.value);
   };
 
   const onClickRemoveImg = () => {
@@ -148,18 +156,29 @@ export const AddProduct = () => {
 
             <select
               {...register('categoryId', { required: 'category problem' })}
+              onChange={onChangeCategory}
               className="form-control">
-              <option value="62f6b0bd0bb299970a10107f">Nazva Category</option>
-              <option value="kod_category2">Nazva Category2</option>
-              <option value="kod_category3">Nazva Category3</option>
+              <option value="">Select category</option>
+              {categories &&
+                categories.map((category: CategoriesType) => (
+                  <option key={category._id} value={category._id}>
+                    {category.name}
+                  </option>
+                ))}
             </select>
 
             <select
-              {...register('subCategoryId', { required: 'category problem' })}
+              {...register('subCategoryId', { required: 'subCategory problem' })}
               className="form-control">
-              <option value="62f6b0f50bb299970a101083">Nazva subcategory</option>
-              <option value="kod_subcategory2">Nazva subcategory2</option>
-              <option value="kod_subcategory3">Nazva subcategory3</option>
+              <option value="none">Select subcategory</option>
+              {subCategories &&
+                subCategories
+                  .filter((el: SubCategoriesType) => el.category === catId)
+                  .map((subCategory: SubCategoriesType) => (
+                    <option key={subCategory._id} value={subCategory._id}>
+                      {subCategory.name}
+                    </option>
+                  ))}
             </select>
           </div>
           <input

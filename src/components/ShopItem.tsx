@@ -59,31 +59,23 @@ export const ShopItem: React.FC<ShopItemProps> = ({
           <div style={{ fontSize: '12px', textAlign: 'left', paddingLeft: '25px' }}>
             <div>
               Розмір:
-              {sizes[0] ? (
-                <select>
-                  {sizes.map((size, index) => (
-                    <option key={index + size} value={index}>
-                      {size}
-                    </option>
-                  ))}
-                </select>
-              ) : (
-                'Один розмір'
-              )}
+              <select disabled={sizes[1] ? false : true}>
+                {sizes.map((size, index) => (
+                  <option key={index + size} value={index}>
+                    {size}
+                  </option>
+                ))}
+              </select>
             </div>
             <div style={{ paddingTop: '5px' }}>
               Колір:
-              {colors[0] ? (
-                <select name="user_profile_color_1">
-                  {colors.map((color, index) => (
-                    <option key={color + index} value={index}>
-                      {color}
-                    </option>
-                  ))}
-                </select>
-              ) : (
-                'Один колір'
-              )}
+              <select disabled={colors[1] ? false : true} name="user_profile_color_1">
+                {colors.map((color, index) => (
+                  <option key={color + index} value={index}>
+                    {color}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
         </div>

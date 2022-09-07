@@ -1,4 +1,4 @@
-export const selectors = () => {
-  return {};
-};
+import { RootState } from '../store';
+
+export const selectProducts = (state: RootState) => state.products;
 //так роблять ще структуру

@@ -7,6 +7,11 @@ export const fetchProducts = createAsyncThunk('products/fetchProducts', async (p
   return data;
 });
 
+export const fetchCategories = createAsyncThunk('products/fetchCategories', async () => {
+  const { data } = await axios.get('/category');
+  return data;
+});
+
 // interface ProductsSliceState {
 //   searchValue: string;
 //   categoryId: number;
@@ -22,6 +27,8 @@ const initialState = {
     pages: 1,
     allProducts: 10,
   },
+  categories: [],
+  subCategories: [],
   status: 'loading',
 };
 
@@ -34,6 +41,7 @@ const productsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    //product
     builder.addCase(fetchProducts.pending, (state) => {
       state.status = 'loading';
       state.products = [];
@@ -46,6 +54,22 @@ const productsSlice = createSlice({
     builder.addCase(fetchProducts.rejected, (state) => {
       state.status = 'error';
       state.products = [];
+    });
+    //categories
+    builder.addCase(fetchCategories.pending, (state) => {
+      state.status = 'loading';
+      state.categories = [];
+      state.subCategories = [];
+    });
+    builder.addCase(fetchCategories.fulfilled, (state, action) => {
+      state.categories = action.payload.category;
+      state.subCategories = action.payload.subCategory;
+      state.status = 'success';
+    });
+    builder.addCase(fetchCategories.rejected, (state) => {
+      state.status = 'error';
+      state.categories = [];
+      state.subCategories = [];
     });
   },
 });
