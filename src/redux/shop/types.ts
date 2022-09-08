@@ -7,5 +7,5 @@ export type CategoriesType = {
 export type SubCategoriesType = {
   _id?: string;
   name: string;
-  category: string;
+  category: CategoriesType;
 };

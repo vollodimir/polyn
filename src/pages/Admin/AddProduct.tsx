@@ -173,7 +173,7 @@ export const AddProduct = () => {
               <option value="none">Select subcategory</option>
               {subCategories &&
                 subCategories
-                  .filter((el: SubCategoriesType) => el.category === catId)
+                  .filter((el: SubCategoriesType) => el.category._id === catId)
                   .map((subCategory: SubCategoriesType) => (
                     <option key={subCategory._id} value={subCategory._id}>
                       {subCategory.name}
