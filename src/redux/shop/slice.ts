@@ -5,9 +5,10 @@ import { FetchProductsParams, FetchProductsType, ProductsSliceState, Status } fr
 export const fetchProducts = createAsyncThunk<FetchProductsType, FetchProductsParams>(
   'products/fetchProducts',
   async (params) => {
-    const { page, searchRequest } = params;
+    const { page, searchRequest = '' } = params;
     const curentPage = `?page=${page}`;
-    const searchValue = `&search=підстилк`;
+    console.log(searchRequest);
+    const searchValue = `&search=${searchRequest}`;
     const { data } = await axios.get(`/product${curentPage}${searchValue}`);
     return data;
   },

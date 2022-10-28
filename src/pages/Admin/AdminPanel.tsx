@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { API_URL } from '../../config';
 import axios from '../../axios';
 import { AdminMenu } from '../../components/AdminMenu';
@@ -8,6 +8,7 @@ import { Pagination } from '../../components/Pagination';
 import { fetchProducts, setCurentPage } from '../../redux/shop/slice';
 import { RootState, useAppDispatch } from '../../redux/store';
 import { ShopItemProps } from '../../redux/shop/types';
+import { ShopSearch } from '../../components/ShopSearch';
 
 export const AdminPanel = () => {
   const dispatch = useAppDispatch();
@@ -57,26 +58,36 @@ export const AdminPanel = () => {
           <thead className="bg-secondary text-dark">
             <tr>
               <th>Products ({pagination.allProducts})</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th>Total</th>
-              <th>Remove</th>
+              <th>Img</th>
+              <th>Cat{'>'}Subcat</th>
+              <th>Sizes</th>
+              <th>Price($)</th>
+              <th>Edit/Del</th>
             </tr>
           </thead>
           <tbody className="align-middle">
             {products &&
               products.map((product: ShopItemProps) => (
-                <tr key={product._id}>
+                <tr
+                  key={product._id}
+                  style={product.availability ? {} : { textDecoration: 'line-through' }}>
                   <td className="align-middle" style={{ textAlign: 'left' }}>
+                    <Link style={{ color: '#6f6f6f' }} to={`/shop/${product._id}`}>
+                      {' '}
+                      {product.title}
+                    </Link>
+                  </td>
+                  <td className="align-middle">
                     <img
                       src={`${API_URL}/uploads/${product._id}/${product.imgURL[0]}`}
                       style={{ width: '50px' }}
-                    />{' '}
-                    {product.title}
+                    />
                   </td>
-                  <td className="align-middle">$ {product.price}</td>
+                  <td className="align-middle">
+                    {product.category?.name + ' > ' + product.subCategory?.name}
+                  </td>
                   <td className="align-middle">{product.sizes.join(', ')}</td>
-                  <td className="align-middle">{product.categoryId}</td>
+                  <td className="align-middle">{product.price - product.price * product.sale}</td>
                   <td className="align-middle">
                     <button
                       onClick={() => {

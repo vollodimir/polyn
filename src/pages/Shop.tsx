@@ -23,10 +23,10 @@ export const Shop: React.FC = () => {
   const onChangePage = (page: number) => dispatch(setCurentPage(page));
 
   const { searchRequest } = useSelector(selectFilter);
-  //////////////tuta pravyty
+
   React.useEffect(() => {
     dispatch(fetchProducts({ page: pagination.page, searchRequest }));
-  }, [pagination.page]);
+  }, [pagination.page, searchRequest]);
 
   return (
     <div className="container-fluid pt-5">
