@@ -121,7 +121,7 @@ export const AddSubcategory = () => {
             className="form-control">
             <option value="">Select category</option>
             {categories &&
-              categories.map((category: SubCategoriesType) => (
+              categories.map((category) => (
                 <option key={category._id} value={category._id}>
                   {category.name}
                 </option>

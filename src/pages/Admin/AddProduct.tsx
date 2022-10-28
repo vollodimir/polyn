@@ -1,13 +1,15 @@
 import React from 'react';
 import axios from '../../axios';
 import { useForm } from 'react-hook-form';
+import { Navigate, useParams } from 'react-router-dom';
 
 import removeSVG from '../../assets/img/svg/cancel-circle.svg';
 import { AdminMenu } from '../../components/AdminMenu';
-import { ShopItemProps } from '../../components/ShopItem';
+
 import { useSelector } from 'react-redux';
 import { selectProducts } from '../../redux/shop/selectors';
-import { CategoriesType, SubCategoriesType } from '../../redux/shop/types';
+import { CategoriesType, ShopItemProps, SubCategoriesType } from '../../redux/shop/types';
+import { API_URL } from '../../config';
 
 const sizesArr = [
   { value: '110/140', label: '110/140' },
@@ -16,10 +18,43 @@ const sizesArr = [
   { value: '60/120', label: '60/120' },
 ];
 
+const defaultFormValue = {
+  _id: '',
+  title: '',
+  description: '',
+  text: '',
+  categoryId: '',
+  subCategoryId: '',
+  tags: [''],
+  imgURL: [],
+  videoURL: '',
+  availability: true,
+  sizes: [''],
+  colors: [''],
+  price: 0,
+  priceFactor: 0,
+  sale: 0,
+};
+
 export const AddProduct = () => {
-  const [productImgArr, setProductImgArr] = React.useState([]);
+  const { id } = useParams();
+  const { categories, products, subCategories } = useSelector(selectProducts);
+  const [productImgArr, setProductImgArr] = React.useState<string[]>([]);
   const [catId, setCatId] = React.useState('');
-  const { categories, subCategories } = useSelector(selectProducts);
+  const [isEdit, setIsEdit] = React.useState(true);
+
+  const [editedProd]: ShopItemProps[] = products.filter(
+    (product: ShopItemProps) => id === product._id,
+  );
+
+  const [prodEdited, setProdEdited] = React.useState<ShopItemProps>(editedProd || defaultFormValue);
+
+  React.useEffect(() => {
+    if (id) {
+      setProductImgArr(editedProd.imgURL);
+      setCatId(editedProd.categoryId);
+    }
+  }, []);
 
   const {
     reset,
@@ -28,44 +63,38 @@ export const AddProduct = () => {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({
-    defaultValues: {
-      title: '',
-      description: '',
-      text: '',
-      categoryId: '',
-      subCategoryId: 'none',
-      tags: [''],
-      imgURL: [''],
-      videoURL: '',
-      availability: true,
-      sizes: [''],
-      colors: [''],
-      price: 0,
-      priceFactor: 0,
-      sale: 0,
-    },
+    defaultValues: prodEdited,
     mode: 'onChange',
   });
 
   const onSubmit = async (values: ShopItemProps) => {
     try {
-      ///zrobyty bez slice
+      let productId;
       const { colors, tags } = values;
       values.colors = String(colors).split(',');
       values.tags = String(tags).split(',');
       values.imgURL = productImgArr;
 
-      //const productData = await dispatch(fetchProductAdd(values));
-
-      const { data } = await axios.post('/product', values);
-
-      //console.log(data.response);
-
-      if (data) {
-        alert('Product add!');
-        reset();
-        setProductImgArr([]);
+      if (id) {
+        if (window.confirm('Update Product?')) {
+          await axios.patch(`/product/${prodEdited._id}`, values);
+          alert('Product Updated!');
+          onClickCancel();
+          productId = id;
+        }
+      } else {
+        const { data } = await axios.post('/product', values);
+        console.log(data);
+        if (data) {
+          productId = data._id;
+          alert('Product add!');
+          reset();
+          setProdEdited(defaultFormValue);
+          setProductImgArr([]);
+        }
       }
+      //tut dorobyty
+      await axios.post('/upload/move', { imgURL: values.imgURL, productId: productId });
     } catch (error) {
       console.log(error);
       alert('Product add problem!');
@@ -85,6 +114,7 @@ export const AddProduct = () => {
       const { data } = await axios.post('/upload/array', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
+
       setProductImgArr(data);
       //spochatku u state? a potim zagruzka
     } catch (error) {
@@ -101,6 +131,16 @@ export const AddProduct = () => {
     resetField('imgURL');
   };
 
+  const onClickCancel = () => {
+    reset();
+    setProdEdited(defaultFormValue);
+    setIsEdit(false);
+  };
+
+  if (!isEdit) {
+    return <Navigate to={`/admin`} />;
+  }
+
   return (
     <>
       <AdminMenu />
@@ -108,6 +148,8 @@ export const AddProduct = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <input
             {...register('title', { required: 'title problem' })}
+            value={prodEdited.title}
+            onChange={(event) => setProdEdited({ ...prodEdited, title: event.target.value })}
             type="text"
             className="form-control is-valid"
             id="title"
@@ -117,11 +159,13 @@ export const AddProduct = () => {
             <input
               {...register('imgURL')}
               onChange={onChangeFileInput}
+              //value={prodEdited.imgURL}
+              //onChange={(event) => setProdEdited({ ...prodEdited, title: event.target.value })}
               multiple
               type="file"
               className="form-control-file"
               name="imgURL"
-              accept=".jpg, .jpeg, .png"
+              accept=".jpg, .jpeg, .png, .webp"
             />
 
             {!!productImgArr.length && (
@@ -133,11 +177,11 @@ export const AddProduct = () => {
                   title={'Remove image'}
                   alt={'Remove image'}
                 />
-                {productImgArr.map((img: string) => (
+                {productImgArr.map((img: string, index) => (
                   <img
-                    key={img}
+                    key={img + index}
                     style={{ height: '60px', margin: '0 5px 10px 0' }}
-                    src={`http://localhost:4444/uploads/${img}`}
+                    src={`${API_URL}/uploads/temp/${img}`}
                     title={img}
                     alt={img}
                   />
@@ -146,10 +190,14 @@ export const AddProduct = () => {
             )}
             <label className="form-control">
               <input
-                {...register('availability', { required: 'availability problem' })}
+                {...register('availability')}
+                checked={prodEdited.availability}
+                onChange={() =>
+                  setProdEdited({ ...prodEdited, availability: !prodEdited.availability })
+                }
                 type="checkbox"
                 name="availability"
-                defaultChecked
+                //defaultChecked
               />{' '}
               Available
             </label>
@@ -169,8 +217,12 @@ export const AddProduct = () => {
 
             <select
               {...register('subCategoryId', { required: 'subCategory problem' })}
+              value={prodEdited.subCategoryId}
+              onChange={(event) =>
+                setProdEdited({ ...prodEdited, subCategoryId: event.target.value })
+              }
               className="form-control">
-              <option value="none">Select subcategory</option>
+              <option value="">Select subcategory</option>
               {subCategories &&
                 subCategories
                   .filter((el: SubCategoriesType) => el.category._id === catId)
@@ -182,7 +234,9 @@ export const AddProduct = () => {
             </select>
           </div>
           <input
-            {...register('videoURL', { required: 'videoURL problem' })}
+            {...register('videoURL')}
+            value={prodEdited.videoURL}
+            onChange={(event) => setProdEdited({ ...prodEdited, videoURL: event.target.value })}
             type="text"
             className="form-control"
             id="video"
@@ -249,9 +303,20 @@ export const AddProduct = () => {
               placeholder="sale"
             />
           </div>
-          <button type="submit" className="btn btn-lg btn-primary btn-block">
-            Add product
-          </button>
+          {!id ? (
+            <button type="submit" className="btn btn-lg btn-primary btn-block">
+              Add product
+            </button>
+          ) : (
+            <>
+              <button type="submit" className="btn btn-lg btn-primary btn-block">
+                Update product
+              </button>
+              <button onClick={onClickCancel} className="btn btn-lg btn-secondary btn-block">
+                Сancel
+              </button>
+            </>
+          )}
         </form>
       </div>
     </>

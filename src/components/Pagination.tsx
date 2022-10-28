@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../redux/store';
 
 type PaginationProps = {
   page: number;

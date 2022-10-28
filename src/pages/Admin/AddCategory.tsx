@@ -52,6 +52,7 @@ export const AddCategory = () => {
           alert('Category Updated!');
           dispatch(fetchCategories());
           clearForm();
+          setIsEdit(false);
         }
       }
     } catch (error) {

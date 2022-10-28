@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShopItemProps } from '../ShopItem';
+import { ShopItemProps } from '../../redux/shop/types';
 import styles from './Tabs.module.scss';
 
 export const Tabs: React.FC<ShopItemProps> = ({ text }) => {

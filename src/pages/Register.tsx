@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { selectIsAuth } from '../redux/auth/selectors';
-import { fetchRegister } from '../redux/auth/slise';
+import { fetchRegister } from '../redux/auth/slice';
 import { RegisterParams } from '../redux/auth/types';
 import { useAppDispatch } from '../redux/store';
 

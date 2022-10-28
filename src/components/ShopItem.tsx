@@ -2,24 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import defaultProdImg from '../assets/img/defaultProdImg.png';
-
-export type ShopItemProps = {
-  _id?: string;
-  title: string;
-  description: string;
-  text: string;
-  categoryId: string;
-  subCategoryId: string;
-  tags: string[];
-  imgURL: string[];
-  videoURL: string;
-  availability: boolean;
-  sizes: string[];
-  colors: string[];
-  price: number;
-  priceFactor: number;
-  sale: number;
-};
+import { API_URL } from '../config';
+import { ShopItemProps } from '../redux/shop/types';
 
 export const ShopItem: React.FC<ShopItemProps> = ({
   _id,
@@ -45,7 +29,7 @@ export const ShopItem: React.FC<ShopItemProps> = ({
           <Link to={`/shop/${_id}`}>
             <img
               className="img-fluid w-100"
-              src={imgURL.length ? `http://localhost:4444/uploads/${imgURL[0]}` : defaultProdImg}
+              src={imgURL.length ? `${API_URL}/uploads/${_id}/${imgURL[0]}` : defaultProdImg}
               alt="title"
             />
           </Link>
@@ -53,8 +37,8 @@ export const ShopItem: React.FC<ShopItemProps> = ({
         <div className="card-body border-left border-right text-center p-0 pt-4 pb-3">
           <h6 className="text-truncate mb-3"> {title} </h6>
           <div className="d-flex justify-content-center">
-            <h6>${price}</h6>
-            <h6 className="text-muted ml-2">{!!sale && <del>${price - price * sale}</del>}</h6>
+            <h6>${price - price * sale}</h6>
+            <h6 className="text-muted ml-2">{!!sale && <del>${price}</del>}</h6>
           </div>
           <div style={{ fontSize: '12px', textAlign: 'left', paddingLeft: '25px' }}>
             <div>

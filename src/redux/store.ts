@@ -1,7 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import { useDispatch } from 'react-redux';
-import { authReducer } from './auth/slise';
+import { authReducer } from './auth/slice';
+import { filterReducer } from './filter/slice';
 import { postsReducer } from './posts/slice';
 import { productsReducer } from './shop/slice';
 
@@ -10,6 +11,7 @@ export const store = configureStore({
     posts: postsReducer,
     products: productsReducer,
     auth: authReducer,
+    filter: filterReducer,
   },
 });
 

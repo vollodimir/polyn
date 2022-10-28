@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { selectIsAuth } from '../redux/auth/selectors';
 
-import { fetchLogin } from '../redux/auth/slise';
+import { fetchLogin } from '../redux/auth/slice';
 import { LoginParams } from '../redux/auth/types';
 import { useAppDispatch } from '../redux/store';
 

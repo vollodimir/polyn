@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { selectIsAuth } from '../redux/auth/selectors';
-import { logout } from '../redux/auth/slise';
+import { logout } from '../redux/auth/slice';
 import { useAppDispatch } from '../redux/store';
 
 export const MainMenu = () => {

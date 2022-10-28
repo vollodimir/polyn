@@ -4,9 +4,10 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import styles from './SliderShopDetail.module.scss';
-import { ShopItemProps } from '../ShopItem';
 
 import defaultProdImg from '../../assets/img/defaultProdImg.png';
+import { API_URL } from '../../config';
+import { ShopItemProps } from '../../redux/shop/types';
 
 // const imgArr = [
 //   'http://ostarbeiter.vn.ua/img/2022/04/ustawa-o-pomocy-obywatelom-ukrainy.jpg',
@@ -38,11 +39,11 @@ function NextArrow({ onClick }: ArrowProps) {
   );
 }
 
-export const SliderShopDetail: React.FC<ShopItemProps> = ({ imgURL, title }) => {
+export const SliderShopDetail: React.FC<ShopItemProps> = ({ imgURL, title, _id }) => {
   const settings = {
     customPaging: (i: number) => (
       <a>
-        <img src={`http://localhost:4444/uploads/${imgURL[i]}`} />
+        <img src={`${API_URL}/uploads/${_id}/${imgURL[i]}`} />
       </a>
     ),
 
@@ -62,7 +63,7 @@ export const SliderShopDetail: React.FC<ShopItemProps> = ({ imgURL, title }) => 
       {imgURL.length ? (
         imgURL.map((img, index) => (
           <div key={img + index} className={styles.mainImg}>
-            <img src={`http://localhost:4444/uploads/${img}`} title={title} />
+            <img src={`${API_URL}/uploads/${_id}/${img}`} title={title} />
           </div>
         ))
       ) : (

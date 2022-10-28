@@ -14,13 +14,13 @@ export const SortBy = () => {
       </button>
       <div className="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
         <a className="dropdown-item" href="#">
-          Latest
+          Name
         </a>
         <a className="dropdown-item" href="#">
-          Popularity
+          Price
         </a>
         <a className="dropdown-item" href="#">
-          Best Rating
+          Default
         </a>
       </div>
     </div>

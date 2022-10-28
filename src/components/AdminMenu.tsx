@@ -11,6 +11,7 @@ export const AdminMenu = () => {
 
   return (
     <div className="admin-menu">
+      Manager: {String(userData?.isManager)}
       <Link to="/admin" className="btn btn-primary active" aria-current="page">
         List products
       </Link>

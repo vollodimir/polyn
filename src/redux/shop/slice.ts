@@ -1,35 +1,34 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from '../../axios';
+import { FetchProductsParams, FetchProductsType, ProductsSliceState, Status } from './types';
 
-export const fetchProducts = createAsyncThunk('products/fetchProducts', async (page: number) => {
-  const curentPage = `?page=${page}`;
-  const { data } = await axios.get(`/product${curentPage}`);
-  return data;
-});
+export const fetchProducts = createAsyncThunk<FetchProductsType, FetchProductsParams>(
+  'products/fetchProducts',
+  async (params) => {
+    const { page, searchRequest } = params;
+    const curentPage = `?page=${page}`;
+    const searchValue = `&search=підстилк`;
+    const { data } = await axios.get(`/product${curentPage}${searchValue}`);
+    return data;
+  },
+);
 
 export const fetchCategories = createAsyncThunk('products/fetchCategories', async () => {
   const { data } = await axios.get('/category');
   return data;
 });
 
-// interface ProductsSliceState {
-//   searchValue: string;
-//   categoryId: number;
-//   sort: Sort;
-//   curentPage: number;
-// }
-
-const initialState = {
+const initialState: ProductsSliceState = {
   products: [],
   pagination: {
     page: 1,
-    limit: 10,
+    limit: 6,
     pages: 1,
     allProducts: 10,
   },
   categories: [],
   subCategories: [],
-  status: 'loading',
+  status: Status.LOADING,
 };
 
 const productsSlice = createSlice({
@@ -43,31 +42,31 @@ const productsSlice = createSlice({
   extraReducers: (builder) => {
     //product
     builder.addCase(fetchProducts.pending, (state) => {
-      state.status = 'loading';
+      state.status = Status.LOADING;
       state.products = [];
     });
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
       state.pagination = action.payload.pagination;
       state.products = action.payload.products;
-      state.status = 'success';
+      state.status = Status.SUCCESS;
     });
     builder.addCase(fetchProducts.rejected, (state) => {
-      state.status = 'error';
+      state.status = Status.ERROR;
       state.products = [];
     });
     //categories
     builder.addCase(fetchCategories.pending, (state) => {
-      state.status = 'loading';
+      state.status = Status.LOADING;
       state.categories = [];
       state.subCategories = [];
     });
     builder.addCase(fetchCategories.fulfilled, (state, action) => {
       state.categories = action.payload.category;
       state.subCategories = action.payload.subCategory;
-      state.status = 'success';
+      state.status = Status.SUCCESS;
     });
     builder.addCase(fetchCategories.rejected, (state) => {
-      state.status = 'error';
+      state.status = Status.ERROR;
       state.categories = [];
       state.subCategories = [];
     });

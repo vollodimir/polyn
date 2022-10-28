@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom';
 import axios from '../axios';
 import { HomeProducts } from '../components/HomeProducts';
 import { Loading } from '../components/Loading';
-import { ShopItemProps } from '../components/ShopItem';
 import { SliderShopDetail } from '../components/SliderShopDetail';
 import { Tabs } from '../components/Tabs';
+import { ShopItemProps } from '../redux/shop/types';
 
 export const ShopDetail: React.FC = () => {
   const { id } = useParams();
