@@ -71,8 +71,8 @@ export const AddProduct = () => {
     try {
       let productId;
       const { colors, tags } = values;
-      values.colors = String(colors).split(',');
-      values.tags = String(tags).split(',');
+      values.colors = String(colors).replace(/,\s+/g, ',').split(',');
+      values.tags = String(tags).replace(/,\s+/g, ',').split(',');
       values.imgURL = productImgArr;
 
       if (id) {

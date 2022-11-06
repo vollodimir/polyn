@@ -111,7 +111,7 @@ export const AdminPanel = () => {
           </tbody>
         </table>
         <br />
-        <Pagination onChangePage={onChangePage} {...pagination} />
+        {pagination.pages > 1 && <Pagination onChangePage={onChangePage} {...pagination} />}
       </div>
     </>
   );

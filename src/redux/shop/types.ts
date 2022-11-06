@@ -1,7 +1,7 @@
 export enum Status {
   LOADING = 'loading',
   SUCCESS = 'success',
-  ERROR = 'error', 
+  ERROR = 'error',
 }
 
 export type CategoriesType = {
@@ -39,11 +39,15 @@ export type ShopItemProps = {
 export type FetchProductsType = {
   products: ShopItemProps[];
   pagination: PaginationType;
+  parameters: PrametersType;
 };
 
 export type FetchProductsParams = {
   page?: number;
   searchRequest?: string;
+  colors?: string[];
+  tags?: string[];
+  sizes?: string[];
 };
 
 export type PaginationType = {
@@ -52,10 +56,16 @@ export type PaginationType = {
   pages: number;
   allProducts: number;
 };
+export type PrametersType = {
+  allColors: string[];
+  allTags: string[];
+  allSizes: string[];
+};
 
 export interface ProductsSliceState {
   products: ShopItemProps[];
   pagination: PaginationType;
+  parameters: PrametersType;
   categories: CategoriesType[];
   subCategories: SubCategoriesType[];
   status: Status;

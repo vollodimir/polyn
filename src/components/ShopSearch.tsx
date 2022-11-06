@@ -20,8 +20,12 @@ export const ShopSearch = () => {
   );
 
   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchRequestLocal(event.target.value);
-    searchDebounce(event.target.value);
+    const value = event.target.value;
+
+    setSearchRequestLocal(value);
+    if (value.length === 0 || value.length > 2) {
+      searchDebounce(value);
+    }
   };
 
   return (

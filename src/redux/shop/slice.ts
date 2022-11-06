@@ -5,11 +5,16 @@ import { FetchProductsParams, FetchProductsType, ProductsSliceState, Status } fr
 export const fetchProducts = createAsyncThunk<FetchProductsType, FetchProductsParams>(
   'products/fetchProducts',
   async (params) => {
-    const { page, searchRequest = '' } = params;
+    const { page, searchRequest = '', colors = [], sizes = [], tags = [] } = params;
+
+    const filter =
+      (colors[0] ? `&colors=${colors}` : '') +
+      (sizes[0] ? `&sizes=${sizes}` : '') +
+      (tags[0] ? `&tags=${tags}` : '');
+
     const curentPage = `?page=${page}`;
-    console.log(searchRequest);
-    const searchValue = `&search=${searchRequest}`;
-    const { data } = await axios.get(`/product${curentPage}${searchValue}`);
+    const searchValue = searchRequest ? `&search=${searchRequest}` : '';
+    const { data } = await axios.get(`/product${curentPage}${searchValue}${filter}`);
     return data;
   },
 );
@@ -26,6 +31,11 @@ const initialState: ProductsSliceState = {
     limit: 6,
     pages: 1,
     allProducts: 10,
+  },
+  parameters: {
+    allColors: [],
+    allTags: [],
+    allSizes: [],
   },
   categories: [],
   subCategories: [],
@@ -48,6 +58,7 @@ const productsSlice = createSlice({
     });
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
       state.pagination = action.payload.pagination;
+      state.parameters = action.payload.parameters;
       state.products = action.payload.products;
       state.status = Status.SUCCESS;
     });

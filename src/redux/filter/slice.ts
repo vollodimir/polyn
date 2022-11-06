@@ -3,6 +3,11 @@ import { FilterSliseState } from './types';
 
 const initialState: FilterSliseState = {
   searchRequest: '',
+  filters: {
+    colors: [],
+    tags: [],
+    sizes: [],
+  },
 };
 
 const filterSlice = createSlice({
@@ -12,9 +17,12 @@ const filterSlice = createSlice({
     setSearchRequest(state, action) {
       state.searchRequest = action.payload;
     },
+    setFilters(state, action) {
+      state.filters = action.payload;
+    },
   },
 });
 
-export const { setSearchRequest } = filterSlice.actions;
+export const { setSearchRequest, setFilters } = filterSlice.actions;
 
 export const filterReducer = filterSlice.reducer;

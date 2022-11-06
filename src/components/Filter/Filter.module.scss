@@ -1,0 +1,57 @@
+.filter {
+  align-self: flex-start;
+  padding: 0 !important;
+
+  & > div {
+    padding: 10px 18px;
+    border-bottom: 1px solid #e7ebec;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    label {
+      padding-right: 15px;
+    }
+  }
+
+  details {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+  }
+  summary {
+    font-size: 1rem;
+    font-weight: 600;
+    display: block;
+    position: relative;
+    cursor: pointer;
+  }
+  summary:before {
+    font-size: 25px;
+    top: 0;
+    right: 0.3em;
+    color: transparent;
+    background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTYuNTkgOC41OUwxMiAxMy4xNyA3LjQxIDguNTkgNiAxMGw2IDYgNi02eiIvPjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz48L3N2Zz4=')
+      no-repeat 50% 50% / 1em 1em;
+    width: 1em;
+    height: 1em;
+    content: '';
+    position: absolute;
+    transition: transform 0.5s;
+  }
+  details[open] > summary:before {
+    transform: scale(1, -1);
+  }
+
+  details[open] summary ~ * {
+    transition: all 0.5s;
+    animation: sweep 0.5s ease-in-out;
+  }
+
+  :global {
+    .filter__list {
+      padding: 15px 0 0 15px;
+    }
+  }
+}
