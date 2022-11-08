@@ -6,12 +6,19 @@ import { FiltersType } from '../../redux/filter/types';
 import { selectProducts } from '../../redux/shop/selectors';
 import { useAppDispatch } from '../../redux/store';
 import styles from './Filter.module.scss';
-//import MultiRangeSlider from './MultiRangeSlider';
 
 export const Filter = () => {
+  //price zrobyty validation
   const dispatch = useAppDispatch();
   const { parameters } = useSelector(selectProducts);
   const { filters } = useSelector(selectFilter);
+  const filterEmpty = {
+    colors: [],
+    tags: [],
+    sizes: [],
+    minPrice: parameters.firstPrice,
+    maxPrice: parameters.lastPrice,
+  };
 
   const [filtersReq, setFiltersReq] = React.useState<FiltersType>(filters);
 
@@ -44,22 +51,53 @@ export const Filter = () => {
     }
   };
 
+  const onChangeMinPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFiltersReq({ ...filtersReq, minPrice: +event.target.value });
+  };
+
+  const onChangeMaxPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFiltersReq({ ...filtersReq, maxPrice: +event.target.value });
+  };
+
   const fetchFilters = () => {
-    dispatch(setFilters(filtersReq));
-  };
-  const clearFilters = () => {
-    const filtetEmpty = {
-      colors: [],
-      tags: [],
-      sizes: [],
+    const prices = {
+      minPrice: filtersReq.minPrice,
+      maxPrice: filtersReq.maxPrice,
     };
-    dispatch(setFilters(filtetEmpty));
 
-    setFiltersReq(filtetEmpty);
-    //setIsClearInputs(false);
+    const isErr =
+      filtersReq.minPrice >= filtersReq.maxPrice ||
+      filtersReq.minPrice >= parameters.lastPrice ||
+      filtersReq.maxPrice <= parameters.firstPrice ||
+      (!!filtersReq.minPrice && !!filtersReq.maxPrice);
+
+    if (
+      (filtersReq.minPrice >= filtersReq.maxPrice && !!filtersReq.maxPrice) ||
+      filtersReq.minPrice >= parameters.lastPrice
+    ) {
+      prices.minPrice = 0;
+    }
+    if (filtersReq.maxPrice <= parameters.firstPrice) {
+      prices.maxPrice = 0;
+    }
+    console.log(isErr, filtersReq.minPrice, filtersReq.maxPrice);
+
+    dispatch(setFilters(isErr ? { ...filtersReq, ...prices } : filtersReq));
   };
 
-  const hideBtn = filtersReq.colors[0] || filtersReq.sizes[0] || filtersReq.tags[0];
+  const clearFilters = () => {
+    dispatch(setFilters({ ...filterEmpty, minPrice: 0, maxPrice: 0 }));
+    setFiltersReq(filterEmpty);
+  };
+
+  const hideBtn =
+    filtersReq.colors[0] ||
+    filtersReq.sizes[0] ||
+    filtersReq.tags[0] ||
+    filtersReq.minPrice !== filters.minPrice ||
+    filtersReq.maxPrice !== filters.maxPrice ||
+    !!filters.maxPrice ||
+    !!filters.minPrice;
 
   return (
     <aside className={`${styles.filter} col-lg-3 col-md-12 border`}>
@@ -67,14 +105,21 @@ export const Filter = () => {
         <details open>
           <summary>Price:</summary>
           <div className="filter__list">
-            {/* <MultiRangeSlider
-              min={0}
-              max={1000}
-              onChange={
-                ({ min, max }: { min: number; max: number }) => {}
-                // console.log(`min = ${min}, max = ${max}`)
-              }
-            /> */}
+            <div className="input-group mb-3">
+              <input
+                type="number"
+                className="form-control"
+                value={filtersReq.minPrice || parameters.firstPrice}
+                onChange={onChangeMinPrice}
+              />
+              <span className="input-group-text">-</span>
+              <input
+                type="number"
+                className="form-control"
+                value={filtersReq.maxPrice || parameters.lastPrice}
+                onChange={onChangeMaxPrice}
+              />
+            </div>
           </div>
         </details>
       </div>

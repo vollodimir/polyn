@@ -48,6 +48,8 @@ export type FetchProductsParams = {
   colors?: string[];
   tags?: string[];
   sizes?: string[];
+  minPrice?: number;
+  maxPrice?: number;
 };
 
 export type PaginationType = {
@@ -60,6 +62,8 @@ export type PrametersType = {
   allColors: string[];
   allTags: string[];
   allSizes: string[];
+  firstPrice: number;
+  lastPrice: number;
 };
 
 export interface ProductsSliceState {

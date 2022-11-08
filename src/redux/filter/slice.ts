@@ -7,6 +7,8 @@ const initialState: FilterSliseState = {
     colors: [],
     tags: [],
     sizes: [],
+    minPrice: 0,
+    maxPrice: 0,
   },
 };
 

@@ -11,14 +11,14 @@ import { useSelector } from 'react-redux';
 import { Loading } from '../components/Loading';
 import { selectProducts } from '../redux/shop/selectors';
 import { selectFilter } from '../redux/filter/selectors';
-import { ShopItemProps } from '../redux/shop/types';
+import { ShopItemProps, Status } from '../redux/shop/types';
 
 export const Shop: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const { products, pagination, status } = useSelector(selectProducts);
 
-  const isLoading = status === 'success';
+  const isLoading = status === Status.SUCCESS;
 
   const onChangePage = (page: number) => dispatch(setCurentPage(page));
 
@@ -31,7 +31,7 @@ export const Shop: React.FC = () => {
   return (
     <div className="container-fluid pt-5">
       <div className="row px-xl-5">
-        <Filter />
+        {isLoading && <Filter />}
         <div className="col-lg-9 col-md-12">
           <div className="row pb-3">
             <div className="col-12 pb-1">

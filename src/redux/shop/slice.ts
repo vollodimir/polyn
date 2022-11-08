@@ -5,12 +5,22 @@ import { FetchProductsParams, FetchProductsType, ProductsSliceState, Status } fr
 export const fetchProducts = createAsyncThunk<FetchProductsType, FetchProductsParams>(
   'products/fetchProducts',
   async (params) => {
-    const { page, searchRequest = '', colors = [], sizes = [], tags = [] } = params;
+    const {
+      page,
+      searchRequest = '',
+      colors = [],
+      sizes = [],
+      tags = [],
+      minPrice,
+      maxPrice,
+    } = params;
 
     const filter =
       (colors[0] ? `&colors=${colors}` : '') +
       (sizes[0] ? `&sizes=${sizes}` : '') +
-      (tags[0] ? `&tags=${tags}` : '');
+      (tags[0] ? `&tags=${tags}` : '') +
+      (minPrice ? `&minPrice=${minPrice}` : '') +
+      (maxPrice ? `&maxPrice=${maxPrice}` : '');
 
     const curentPage = `?page=${page}`;
     const searchValue = searchRequest ? `&search=${searchRequest}` : '';
@@ -36,6 +46,8 @@ const initialState: ProductsSliceState = {
     allColors: [],
     allTags: [],
     allSizes: [],
+    firstPrice: 0,
+    lastPrice: 0,
   },
   categories: [],
   subCategories: [],
