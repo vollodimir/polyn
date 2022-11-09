@@ -9,6 +9,7 @@ const initialState: FilterSliseState = {
     sizes: [],
     minPrice: 0,
     maxPrice: 0,
+    sort: '',
   },
 };
 
@@ -22,9 +23,12 @@ const filterSlice = createSlice({
     setFilters(state, action) {
       state.filters = action.payload;
     },
+    setSort(state, action) {
+      state.filters.sort = action.payload;
+    },
   },
 });
 
-export const { setSearchRequest, setFilters } = filterSlice.actions;
+export const { setSearchRequest, setFilters, setSort } = filterSlice.actions;
 
 export const filterReducer = filterSlice.reducer;

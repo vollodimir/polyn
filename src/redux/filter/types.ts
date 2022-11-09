@@ -4,6 +4,7 @@ export type FiltersType = {
   sizes: string[];
   minPrice: number;
   maxPrice: number;
+  sort?: string;
 };
 
 export interface FilterSliseState {

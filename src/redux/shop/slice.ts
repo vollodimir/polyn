@@ -13,6 +13,7 @@ export const fetchProducts = createAsyncThunk<FetchProductsType, FetchProductsPa
       tags = [],
       minPrice,
       maxPrice,
+      sort,
     } = params;
 
     const filter =
@@ -20,7 +21,8 @@ export const fetchProducts = createAsyncThunk<FetchProductsType, FetchProductsPa
       (sizes[0] ? `&sizes=${sizes}` : '') +
       (tags[0] ? `&tags=${tags}` : '') +
       (minPrice ? `&minPrice=${minPrice}` : '') +
-      (maxPrice ? `&maxPrice=${maxPrice}` : '');
+      (maxPrice ? `&maxPrice=${maxPrice}` : '') +
+      (sort ? `&sortBy=${sort}` : '');
 
     const curentPage = `?page=${page}`;
     const searchValue = searchRequest ? `&search=${searchRequest}` : '';

@@ -1,28 +1,33 @@
 import React from 'react';
+import { setSort } from '../redux/filter/slice';
+import { useAppDispatch } from '../redux/store';
+
+const sortBy = [
+  { name: '', title: 'Default' },
+  { name: 'priceUp', title: 'Від дешевих' },
+  { name: 'priceDown', title: 'Від дорогих' },
+  { name: 'byName', title: 'По імені' },
+];
 
 export const SortBy = () => {
+  const dispatch = useAppDispatch();
+
+  const onChangeSort = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = event.target;
+
+    dispatch(setSort(value));
+  };
+
   return (
     <div className="dropdown ml-4">
-      <button
-        className="btn border dropdown-toggle"
-        type="button"
-        id="triggerId"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false">
-        Sort by
-      </button>
-      <div className="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
-        <a className="dropdown-item" href="#">
-          Name
-        </a>
-        <a className="dropdown-item" href="#">
-          Price
-        </a>
-        <a className="dropdown-item" href="#">
-          Default
-        </a>
-      </div>
+      <select title="Сортування" onChange={onChangeSort} className="form-control">
+        {sortBy.map((sort) => (
+          <option key={'1' + sort.name} value={sort.name}>
+            {' '}
+            {!sort.name ? 'По даті' : sort.title}
+          </option>
+        ))}
+      </select>
     </div>
   );
 };

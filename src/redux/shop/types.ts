@@ -50,6 +50,7 @@ export type FetchProductsParams = {
   sizes?: string[];
   minPrice?: number;
   maxPrice?: number;
+  sort?: string;
 };
 
 export type PaginationType = {
