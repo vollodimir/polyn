@@ -28,7 +28,7 @@ const MainLayout: React.FC = () => {
         </div>
       </div>
       {/* !== '/login' */}
-      {location.pathname === '/cart' && <BreadCrumbs />}
+      {location.pathname === '/car' && <BreadCrumbs />}
 
       <Outlet />
 

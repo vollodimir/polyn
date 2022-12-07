@@ -40,10 +40,13 @@ export const ShopItem: React.FC<ShopItemProps> = ({
             <h6>${price - price * sale}</h6>
             <h6 className="text-muted ml-2">{!!sale && <del>${price}</del>}</h6>
           </div>
-          <div style={{ fontSize: '12px', textAlign: 'left', paddingLeft: '25px' }}>
-            <div>
-              Розмір:
-              <select disabled={sizes[1] ? false : true}>
+          <div style={{ fontSize: '12px', textAlign: 'left', padding: '25px' }}>
+            <div className="input-group input-group-sm mb-3">
+              <div className="input-group-prepend">
+                {' '}
+                <span className="input-group-text">Розмір:</span>
+              </div>
+              <select className="form-control border" disabled={sizes[1] ? false : true}>
                 {sizes.map((size, index) => (
                   <option key={index + size} value={index}>
                     {size}
@@ -51,9 +54,14 @@ export const ShopItem: React.FC<ShopItemProps> = ({
                 ))}
               </select>
             </div>
-            <div style={{ paddingTop: '5px' }}>
-              Колір:
-              <select disabled={colors[1] ? false : true} name="user_profile_color_1">
+            <div className="input-group input-group-sm">
+              <div className="input-group-prepend">
+                <span className="input-group-text">Колір:</span>
+              </div>
+              <select
+                className="form-control"
+                disabled={colors[1] ? false : true}
+                name="user_profile_color_1">
                 {colors.map((color, index) => (
                   <option key={color + index} value={index}>
                     {color}

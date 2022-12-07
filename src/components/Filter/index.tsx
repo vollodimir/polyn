@@ -10,7 +10,7 @@ import styles from './Filter.module.scss';
 export const Filter = () => {
   //price zrobyty validation
   const dispatch = useAppDispatch();
-  const { parameters } = useSelector(selectProducts);
+  const { parameters, subCategories } = useSelector(selectProducts);
   const { filters } = useSelector(selectFilter);
   const filterEmpty = {
     colors: [],
@@ -101,6 +101,24 @@ export const Filter = () => {
 
   return (
     <aside className={`${styles.filter} col-lg-3 col-md-12 border`}>
+      <div>
+        <details open>
+          <summary>Категорії:</summary>
+          <div className="filter__list">
+            {subCategories.map((subCat) => (
+              <label key={subCat._id}>
+                <input
+                  type="checkbox"
+                  //checked={filtersReq.sizes.includes(size)}
+                  value={subCat.name}
+                  //onChange={onChangeSubCat}
+                />{' '}
+                {subCat.name}
+              </label>
+            ))}
+          </div>
+        </details>
+      </div>
       <div>
         <details open>
           <summary>Price:</summary>
