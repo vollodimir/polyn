@@ -12,7 +12,7 @@ import { Loading } from '../components/Loading';
 import { selectProducts } from '../redux/shop/selectors';
 import { selectFilter } from '../redux/filter/selectors';
 import { ShopItemProps, Status } from '../redux/shop/types';
-import { Link } from 'react-router-dom';
+import { FilterCategory } from '../components/FilterCategory';
 
 export const Shop: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -38,15 +38,7 @@ export const Shop: React.FC = () => {
             <div className="col-12 pb-1">
               <div className="d-flex align-items-center justify-content-between mb-4">
                 <ShopSearch />
-                <div>
-                  {categories.map((cat, index) => (
-                    <button
-                      key={cat._id}
-                      className={`btn btn-${index ? 'light border' : 'secondary'} `}>
-                      # {cat.name}{' '}
-                    </button>
-                  ))}
-                </div>
+                <FilterCategory />
                 <SortBy />
               </div>
             </div>

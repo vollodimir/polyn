@@ -4,6 +4,7 @@ import { selectFilter } from '../../redux/filter/selectors';
 import { setFilters } from '../../redux/filter/slice';
 import { FiltersType } from '../../redux/filter/types';
 import { selectProducts } from '../../redux/shop/selectors';
+
 import { useAppDispatch } from '../../redux/store';
 import styles from './Filter.module.scss';
 
@@ -16,6 +17,7 @@ export const Filter = () => {
     colors: [],
     tags: [],
     sizes: [],
+    subCatID: [],
     minPrice: parameters.firstPrice,
     maxPrice: parameters.lastPrice,
   };
@@ -59,6 +61,16 @@ export const Filter = () => {
     setFiltersReq({ ...filtersReq, maxPrice: +event.target.value });
   };
 
+  const onChangeSubCat = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, checked } = event.target;
+
+    if (checked) {
+      setFiltersReq({ ...filtersReq, subCatID: [...filtersReq.subCatID, value] });
+    } else {
+      setFiltersReq({ ...filtersReq, subCatID: filtersReq.subCatID.filter((el) => el !== value) });
+    }
+  };
+
   const fetchFilters = () => {
     const prices = {
       minPrice: filtersReq.minPrice,
@@ -97,7 +109,8 @@ export const Filter = () => {
     filtersReq.minPrice !== filters.minPrice ||
     filtersReq.maxPrice !== filters.maxPrice ||
     !!filters.maxPrice ||
-    !!filters.minPrice;
+    !!filters.minPrice ||
+    filtersReq.subCatID[0];
 
   return (
     <aside className={`${styles.filter} col-lg-3 col-md-12 border`}>
@@ -105,17 +118,19 @@ export const Filter = () => {
         <details open>
           <summary>Категорії:</summary>
           <div className="filter__list">
-            {subCategories.map((subCat) => (
-              <label key={subCat._id}>
-                <input
-                  type="checkbox"
-                  //checked={filtersReq.sizes.includes(size)}
-                  value={subCat.name}
-                  //onChange={onChangeSubCat}
-                />{' '}
-                {subCat.name}
-              </label>
-            ))}
+            {subCategories
+              .filter(({ _id }) => _id && parameters.allSubCatID.includes(_id))
+              .map((subCat) => (
+                <label key={subCat._id}>
+                  <input
+                    type="checkbox"
+                    checked={subCat._id ? filtersReq.subCatID.includes(subCat._id) : false}
+                    value={subCat._id}
+                    onChange={onChangeSubCat}
+                  />{' '}
+                  {subCat.name}
+                </label>
+              ))}
           </div>
         </details>
       </div>

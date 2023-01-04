@@ -50,6 +50,8 @@ export type FetchProductsParams = {
   sizes?: string[];
   minPrice?: number;
   maxPrice?: number;
+  catID?: string[];
+  subCatID?: string[];
   sort?: string;
 };
 
@@ -63,6 +65,8 @@ export type PrametersType = {
   allColors: string[];
   allTags: string[];
   allSizes: string[];
+  allCatID: string[];
+  allSubCatID: string[];
   firstPrice: number;
   lastPrice: number;
 };

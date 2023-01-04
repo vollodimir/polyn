@@ -7,6 +7,8 @@ const initialState: FilterSliseState = {
     colors: [],
     tags: [],
     sizes: [],
+    catID: [],
+    subCatID: [],
     minPrice: 0,
     maxPrice: 0,
     sort: '',
@@ -26,9 +28,12 @@ const filterSlice = createSlice({
     setSort(state, action) {
       state.filters.sort = action.payload;
     },
+    setCatID(state, action) {
+      state.filters.catID = action.payload;
+    },
   },
 });
 
-export const { setSearchRequest, setFilters, setSort } = filterSlice.actions;
+export const { setSearchRequest, setFilters, setSort, setCatID } = filterSlice.actions;
 
 export const filterReducer = filterSlice.reducer;

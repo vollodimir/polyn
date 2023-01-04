@@ -11,17 +11,21 @@ export const fetchProducts = createAsyncThunk<FetchProductsType, FetchProductsPa
       colors = [],
       sizes = [],
       tags = [],
+      catID = [],
+      subCatID = [],
       minPrice,
       maxPrice,
       sort,
     } = params;
-
+    console.log('---->', catID);
     const filter =
       (colors[0] ? `&colors=${colors}` : '') +
       (sizes[0] ? `&sizes=${sizes}` : '') +
       (tags[0] ? `&tags=${tags}` : '') +
       (minPrice ? `&minPrice=${minPrice}` : '') +
       (maxPrice ? `&maxPrice=${maxPrice}` : '') +
+      (catID[0] ? `&catID=${catID}` : '') +
+      (subCatID[0] ? `&subCatID=${subCatID}` : '') +
       (sort ? `&sortBy=${sort}` : '');
 
     const curentPage = `?page=${page}`;
@@ -48,6 +52,8 @@ const initialState: ProductsSliceState = {
     allColors: [],
     allTags: [],
     allSizes: [],
+    allCatID: [],
+    allSubCatID: [],
     firstPrice: 0,
     lastPrice: 0,
   },

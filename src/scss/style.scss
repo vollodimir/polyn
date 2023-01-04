@@ -333,3 +333,9 @@ input {
     //box-shadow: 0 0 10px #719ece;
   }
 }
+
+button,
+button:focus {
+  outline: none;
+  box-shadow: none !important;
+}
